@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Manrope:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 248 249 250;
+    --foreground: 25 28 29;
+    --card: 255 255 255;
+    --card-foreground: 25 28 29;
+    --popover: 255 255 255;
+    --popover-foreground: 25 28 29;
+    --primary: 0 70 167;
+    --primary-foreground: 255 255 255;
+    --secondary: 219 227 239;
+    --secondary-foreground: 67 70 83;
+    --muted: 237 238 239;
+    --muted-foreground: 115 119 132;
+    --accent: 219 227 239;
+    --accent-foreground: 0 70 167;
+    --destructive: 186 26 26;
+    --destructive-foreground: 255 255 255;
+    --border: 195 198 213;
+    --input: 195 198 213;
+    --ring: 0 70 167;
+    --radius: 0.25rem;
+
+    /* Custom tokens */
+    --color-primary: #0046A7;
+    --color-primary-container: #2B5FC3;
+    --color-on-primary: #ffffff;
+    --color-surface: #F8F9FA;
+    --color-surface-container: #EDEEEF;
+    --color-surface-container-low: #F3F4F5;
+    --color-on-surface: #191C1D;
+    --color-on-surface-variant: #434653;
+    --color-secondary: #575F69;
+    --color-secondary-container: #DBE3EF;
+    --color-outline: #737784;
+    --color-outline-variant: #C3C6D5;
+
+    --font-serif: 'Noto Serif', Georgia, serif;
+    --font-sans: 'Manrope', system-ui, sans-serif;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-on-surface);
+    font-family: var(--font-sans);
+    font-size: 18px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+    line-height: 1.2;
+  }
+}
+
+@layer utilities {
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans { font-family: var(--font-sans); }
+
+  .tracking-widest-label {
+    letter-spacing: 0.18em;
+  }
+
+  .glass {
+    background: rgba(248, 249, 250, 0.82);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+    border-bottom: 1px solid rgba(195, 198, 213, 0.4);
+  }
+
+  .glass-dark {
+    background: rgba(0, 70, 167, 0.08);
+    backdrop-filter: blur(32px);
+    -webkit-backdrop-filter: blur(32px);
+  }
+
+  .glass-card {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(195, 198, 213, 0.35);
+  }
+
+  .text-primary-brand { color: var(--color-primary); }
+  .bg-primary-brand { background-color: var(--color-primary); }
+  .bg-secondary-brand { background-color: var(--color-secondary-container); }
+  .border-brand { border-color: var(--color-outline-variant); }
+
+  .ken-burns {
+    animation: kenBurns 12s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenBurns {
+    from { transform: scale(1.0); }
+    to   { transform: scale(1.06); }
+  }
+
+  .section-rule {
+    border-top: 1px solid var(--color-outline-variant);
+  }
+
+  .img-zoom {
+    overflow: hidden;
+  }
+  .img-zoom img {
+    transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .img-zoom:hover img {
+    transform: scale(1.04);
+  }
+
+  .magnetic-btn {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  }
+  .magnetic-btn:hover {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 16px 48px rgba(0, 70, 167, 0.28);
+  }
+
+  .parallax-text {
+    will-change: transform;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: var(--color-outline-variant); border-radius: 9999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
+
+/* Focus visible */
+*:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
