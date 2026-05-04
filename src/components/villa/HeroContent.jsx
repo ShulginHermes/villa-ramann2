@@ -1,26 +1,21 @@
-import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 
-export default function HeroSection() {
+export default function HeroContent() {
   const scrollToOverview = () => {
     document.getElementById('overview')?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  return (
-    <section className="relative h-screen min-h-[700px] overflow-hidden">
-      {/* Background image with Ken Burns */}
-      <div className="absolute inset-0">
-        <img
-          src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1920&q=90&auto=format&fit=crop"
-          alt="Azure Serenity Villa — Cyprus"
-          className="w-full h-full object-cover ken-burns"
-        />
-        {/* Multi-layer gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent" />
-      </div>
+  const scrollToInquire = () => {
+    document.getElementById('inquire')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
+  const scrollToGallery = () => {
+    document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  return (
+    <>
       {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6">
         {/* Label */}
@@ -41,7 +36,7 @@ export default function HeroSection() {
           className="font-serif text-white text-hero mb-6 max-w-4xl"
           style={{ fontWeight: 300 }}
         >
-          Azure Serenity
+          Villa Ramann
         </motion.h1>
 
         {/* Sub-headline */}
@@ -62,13 +57,13 @@ export default function HeroSection() {
           className="flex flex-col sm:flex-row gap-4 items-center"
         >
           <button
-            onClick={() => document.getElementById('inquire')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={scrollToInquire}
             className="px-10 py-4 bg-primary text-white text-[13px] font-sans font-semibold tracking-label uppercase rounded magnetic-btn min-w-[180px]"
           >
             Inquire Now
           </button>
           <button
-            onClick={() => document.getElementById('gallery')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={scrollToGallery}
             className="px-10 py-4 border border-white/60 text-white text-[13px] font-sans font-semibold tracking-label uppercase rounded hover:bg-white/10 transition-colors duration-300 min-w-[180px]"
           >
             View Gallery
@@ -105,6 +100,6 @@ export default function HeroSection() {
       >
         <ChevronDown className="w-5 h-5 animate-bounce" />
       </motion.button>
-    </section>
+    </>
   );
 }

@@ -1,0 +1,166 @@
+---
+import { Image } from 'astro:assets';
+import Logo from '@/assets/villa-logo.png';
+
+const navLinks = ['Overview', 'Gallery', 'Amenities', 'Location', 'Testimonials'];
+---
+
+<nav
+  id="main-nav"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent opacity-0 -translate-y-[12px] animate-nav-entrance"
+>
+  <div class="max-w-7xl mx-auto px-8 lg:px-16 flex items-center justify-between h-20">
+    {/* Logo */}
+    <button id="logo-btn" class="flex flex-col items-start gap-0.5 group">
+        <Image
+            src={Logo}
+            alt="Villa Ramann logo"
+            class="h-8 w-auto object-contain"
+            loading="eager"
+        />
+    </button>
+
+    {/* Desktop nav */}
+    <div class="hidden md:flex items-center gap-10">
+      {navLinks.map((link) => (
+        <button
+          data-scroll-to={link.toLowerCase()}
+          class="nav-link text-[13px] font-sans font-medium tracking-label uppercase transition-colors duration-300 text-white/85"
+        >
+          {link}
+        </button>
+      ))}
+    </div>
+
+    {/* CTA */}
+    <button
+      data-scroll-to="inquire"
+      id="cta-btn"
+      class="hidden md:block px-6 py-2.5 text-[13px] font-sans font-semibold tracking-label uppercase rounded transition-all duration-300 magnetic-btn border border-white/70 text-white hover:bg-white/10"
+    >
+      Inquire
+    </button>
+
+    {/* Mobile hamburger */}
+    <button
+      id="menu-toggle"
+      class="md:hidden flex flex-col gap-1.5 p-2 text-white transition-colors duration-300"
+    >
+      <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
+      <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
+      <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
+    </button>
+  </div>
+
+  {/* Mobile menu */}
+  <div id="mobile-menu" class="hidden md:hidden glass border-t border-outline-variant/30 px-8 py-6 flex flex-col gap-5">
+    {navLinks.map((link) => (
+      <button data-scroll-to={link.toLowerCase()}
+        class="text-[13px] font-sans font-medium tracking-label uppercase text-left text-foreground/80 hover:text-primary transition-colors">
+        {link}
+      </button>
+    ))}
+    <button data-scroll-to="inquire"
+      class="mt-2 px-6 py-3 text-[13px] font-sans font-semibold tracking-label uppercase bg-primary text-white rounded magnetic-btn w-full">
+      Inquire Now
+    </button>
+  </div>
+</nav>
+
+<style>
+  .animate-nav-entrance {
+    animation: navEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes navEntrance {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Scrolled Styles */
+  nav.is-scrolled {
+    @apply glass shadow-sm;
+  }
+
+  nav.is-scrolled .nav-link {
+    color: #434653;
+  }
+
+  nav.is-scrolled #cta-btn {
+    @apply bg-primary text-white border-primary/80;
+  }
+
+  nav.is-scrolled #menu-toggle {
+    color: #0046A7;
+  }
+
+  /* Mobile Menu Open State */
+  nav.menu-open #mobile-menu {
+    display: flex;
+  }
+
+  nav.menu-open #menu-toggle .hamburger-line:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  nav.menu-open #menu-toggle .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+  nav.menu-open #menu-toggle .hamburger-line:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+</style>
+
+<script>
+  function initNavbar() {
+    const nav = document.getElementById('main-nav');
+    const menuToggle = document.getElementById('menu-toggle');
+    const logoBtn = document.getElementById('logo-btn');
+    const scrollButtons = document.querySelectorAll('[data-scroll-to]');
+
+    if (!nav) return;
+
+    // Scroll effect
+    const handleScroll = () => {
+      if (window.scrollY > 60) {
+        nav.classList.add('is-scrolled');
+      } else {
+        nav.classList.remove('is-scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    // Mobile menu toggle
+    menuToggle?.addEventListener('click', () => {
+      nav.classList.toggle('menu-open');
+    });
+
+    // Logo click (scroll to top)
+    logoBtn?.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      nav.classList.remove('menu-open');
+    });
+
+    // Navigation links
+    scrollButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetId = button.getAttribute('data-scroll-to');
+        const element = document.getElementById(targetId);
+        
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          nav.classList.remove('menu-open');
+        }
+      });
+    });
+  }
+
+  // Run on initial load
+  initNavbar();
+
+  // Run on View Transitions navigation
+  document.addEventListener('astro:after-swap', initNavbar);
+</script>

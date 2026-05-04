@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '@/assets/villa-hero.jpg';
+import HeroContent from './HeroContent.jsx';
+---
+
+<section class="relative h-screen min-h-[700px] overflow-hidden">
+  <div class="absolute inset-0">
+    <Image
+      src={heroImage}
+      alt="Azure Serenity Villa — Cyprus"
+      class="w-full h-full object-cover ken-burns"
+      loading="eager"
+    />
+    <!-- Multi-layer gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/10 to-black/60"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent"></div>
+  </div>
+
+  <HeroContent client:load />
+</section>

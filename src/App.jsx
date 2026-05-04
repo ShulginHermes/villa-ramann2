@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import PageNotFound from './lib/PageNotFound';
 import { AuthProvider, useAuth } from '@/lib/AuthContext';
 import UserNotRegisteredError from '@/components/UserNotRegisteredError';
-import VillaLanding from './components/villa/VillaLanding';
 
 const AuthenticatedApp = () => {
   const { isLoadingAuth, isLoadingPublicSettings, authError, navigateToLogin } = useAuth();
@@ -29,7 +28,6 @@ const AuthenticatedApp = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<VillaLanding />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

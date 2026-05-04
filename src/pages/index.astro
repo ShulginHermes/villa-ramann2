@@ -1,8 +1,26 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import App from '../App.jsx';
+import Navbar from '../components/villa/Navbar.astro';
+import HeroSection from '../components/villa/HeroSection.astro';
+import OverviewSection from '../components/villa/OverviewSection';
+import GallerySection from '../components/villa/GallerySection';
+import AmenitiesSection from '../components/villa/AmenitiesSection';
+import NearbySection from '../components/villa/NearbySection';
+import TestimonialsSection from '../components/villa/TestimonialsSection';
+import InquireSection from '../components/villa/InquireSection';
+import Footer from '../components/villa/Footer';
 ---
 
 <Layout>
-	<App client:only="react" />
+	<div class="min-h-screen bg-surface font-sans">
+		<Navbar />
+		<HeroSection />
+		<OverviewSection client:visible />
+		<GallerySection client:visible />
+		<AmenitiesSection client:visible />
+		<NearbySection client:visible />
+		<TestimonialsSection client:visible />
+		<InquireSection client:visible />
+		<Footer client:visible />
+	</div>
 </Layout>

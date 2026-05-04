@@ -77,6 +77,7 @@ export default function InquireSection() {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     className={inputClass}
+                    name="name"
                     required
                   />
                 </div>
@@ -89,6 +90,7 @@ export default function InquireSection() {
                       value={form.arrival}
                       onChange={(e) => setForm({ ...form, arrival: e.target.value })}
                       className={inputClass}
+                      name="arriveDate"
                       required
                     />
                   </div>
@@ -99,6 +101,7 @@ export default function InquireSection() {
                       value={form.departure}
                       onChange={(e) => setForm({ ...form, departure: e.target.value })}
                       className={inputClass}
+                      name="departureDate"
                       required
                     />
                   </div>
@@ -110,6 +113,7 @@ export default function InquireSection() {
                     value={form.guests}
                     onChange={(e) => setForm({ ...form, guests: e.target.value })}
                     className={`${inputClass} cursor-pointer`}
+                    name="guestsNumber"
                     required
                   >
                     <option value="" disabled>Select number of guests</option>
@@ -127,6 +131,7 @@ export default function InquireSection() {
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     className={inputClass}
+                    name="email"
                     required
                   />
                 </div>
@@ -138,6 +143,7 @@ export default function InquireSection() {
                     value={form.notes}
                     onChange={(e) => setForm({ ...form, notes: e.target.value })}
                     rows={3}
+                    name="notes"
                     className={`${inputClass} resize-none`}
                   />
                 </div>
