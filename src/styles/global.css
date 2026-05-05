@@ -68,14 +68,7 @@
   }
 }
 
-@layer utilities {
-  .font-serif { font-family: var(--font-serif); }
-  .font-sans { font-family: var(--font-sans); }
-
-  .tracking-widest-label {
-    letter-spacing: 0.18em;
-  }
-
+@layer components {
   .glass {
     background: rgba(248, 249, 250, 0.82);
     backdrop-filter: blur(32px);
@@ -94,6 +87,15 @@
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid rgba(195, 198, 213, 0.35);
+  }
+}
+
+@layer utilities {
+  .font-serif { font-family: var(--font-serif); }
+  .font-sans { font-family: var(--font-sans); }
+
+  .tracking-widest-label {
+    letter-spacing: 0.18em;
   }
 
   .text-primary-brand { color: var(--color-primary); }
