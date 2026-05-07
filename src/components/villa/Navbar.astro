@@ -1,5 +1,4 @@
 ---
-import { Image } from 'astro:assets';
 import Logo from '@/assets/villa-logo.png';
 
 const navLinks = ['Overview', 'Gallery', 'Amenities', 'Location', 'Testimonials'];
@@ -12,11 +11,13 @@ const navLinks = ['Overview', 'Gallery', 'Amenities', 'Location', 'Testimonials'
   <div class="max-w-7xl mx-auto px-8 lg:px-16 flex items-center justify-between h-20">
     {/* Logo */}
     <button id="logo-btn" class="flex flex-col items-start gap-0.5 group">
-        <Image
-            src={Logo}
+        <img
+            src={Logo.src}
             alt="Villa Ramann logo"
             class="h-8 w-auto object-contain"
             loading="eager"
+            width={Logo.width}
+            height={Logo.height}
         />
     </button>
 
