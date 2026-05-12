@@ -1,79 +1,106 @@
 ---
 import Logo from '@/assets/villa-logo.png';
 
-const navLinks = ['Overview', 'Gallery', 'Amenities', 'Location', 'Testimonials'];
+const navLinks = [
+  { name: 'Overview', href: '/#overview' },
+  { name: 'Gallery', href: '/gallery' },
+  { name: 'Locations', href: '/locations' },
+  { name: 'Amenities', href: '/#amenities' },
+  { name: 'Testimonials', href: '/#testimonials' }
+];
+
+const { pathname } = Astro.url;
+const isHome = pathname === '/' || pathname === '/index.html';
 ---
 
-<nav
-  id="main-nav"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500 bg-transparent opacity-0 -translate-y-[12px] animate-nav-entrance"
->
-  <div class="max-w-7xl mx-auto px-8 lg:px-16 flex items-center justify-between h-20">
-    {/* Logo */}
-    <button id="logo-btn" class="flex flex-col items-start gap-0.5 group">
-        <img
-            src={Logo.src}
-            alt="Villa Ramann logo"
-            class="h-8 w-auto object-contain"
-            loading="eager"
-            width={Logo.width}
-            height={Logo.height}
-        />
-    </button>
+<div id="nav-wrapper" class="relative">
+  <!-- Main Navigation Bar -->
+  <nav
+    id="main-nav"
+    class={`fixed top-0 left-0 right-0 transition-all duration-500 opacity-0 -translate-y-[12px] animate-nav-entrance z-[100] ${!isHome ? 'is-scrolled' : ''}`}
+  >
+    <div id="nav-bg" class="absolute inset-0 transition-all duration-500 pointer-events-none"></div>
 
-    {/* Desktop nav */}
-    <div class="hidden md:flex items-center gap-10">
-      {navLinks.map((link) => (
-        <button
-          data-scroll-to={link.toLowerCase()}
-          class="nav-link text-[13px] font-sans font-medium tracking-label uppercase transition-colors duration-300 text-white/85"
-        >
-          {link}
-        </button>
-      ))}
+    <div class="max-w-7xl mx-auto px-8 lg:px-16 flex items-center justify-between h-20 relative z-[101]">
+      {/* Logo */}
+      <a href="/" id="logo-link" class="flex flex-col items-start gap-0.5 group">
+          <img
+              src={Logo.src}
+              alt="Villa Ramann logo"
+              class="logo-img h-8 w-auto object-contain transition-all duration-500"
+              loading="eager"
+              width={Logo.width}
+              height={Logo.height}
+          />
+      </a>
+
+      {/* Desktop nav */}
+      <div class="hidden md:flex items-center gap-10">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            data-nav-link
+            class="nav-link text-[13px] font-sans font-medium tracking-label uppercase transition-colors duration-300 text-white/85"
+          >
+            {link.name}
+          </a>
+        ))}
+      </div>
+
+      {/* CTA */}
+      <a
+        href="/#inquire"
+        id="cta-btn"
+        class="hidden md:block px-6 py-2.5 text-[13px] font-sans font-semibold tracking-label uppercase rounded transition-all duration-300 magnetic-btn border border-white/70 text-white hover:bg-white/10"
+      >
+        Inquire
+      </a>
+
+      {/* Mobile hamburger */}
+      <button
+        id="menu-toggle"
+        aria-label="Toggle menu"
+        class="md:hidden flex flex-col gap-1.5 p-2 text-white transition-colors duration-300"
+      >
+        <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
+        <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
+        <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Global Overlay -->
+  <div id="menu-overlay" class="fixed inset-0 bg-black/70 opacity-0 pointer-events-none transition-opacity duration-500 z-[150]"></div>
+
+  <!-- Mobile menu (Side Drawer) -->
+  <div id="mobile-menu" class="fixed inset-y-0 w-[90%] max-w-sm bg-white z-[160] flex flex-col transition-transform duration-500 ease-in-out shadow-2xl mobile-menu-side overflow-hidden">
+    <div class="flex justify-between items-center p-6 border-b border-outline-variant/10">
+       <img src={Logo.src} alt="Logo" class="h-6 w-auto object-contain" />
+       <button id="menu-close" class="p-2 text-foreground/50 hover:text-primary transition-colors" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
     </div>
 
-    {/* CTA */}
-    <button
-      data-scroll-to="inquire"
-      id="cta-btn"
-      class="hidden md:block px-6 py-2.5 text-[13px] font-sans font-semibold tracking-label uppercase rounded transition-all duration-300 magnetic-btn border border-white/70 text-white hover:bg-white/10"
-    >
-      Inquire
-    </button>
-
-    {/* Mobile hamburger */}
-    <button
-      id="menu-toggle"
-      class="md:hidden flex flex-col gap-1.5 p-2 text-white transition-colors duration-300"
-    >
-      <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
-      <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
-      <span class="hamburger-line block w-5 h-px bg-current transition-all duration-300"></span>
-    </button>
+    <div class="flex-1 overflow-y-auto py-10 px-8 flex flex-col gap-8">
+      {navLinks.map((link) => (
+        <a href={link.href}
+          class="text-xl font-sans font-medium tracking-label uppercase text-left text-foreground/80 hover:text-primary transition-colors">
+          {link.name}
+        </a>
+      ))}
+      <a href="/#inquire"
+        class="mt-auto mb-10 px-6 py-4 text-[13px] font-sans font-semibold tracking-label uppercase bg-primary text-white rounded text-center shadow-lg shadow-primary/20">
+        Inquire Now
+      </a>
+    </div>
   </div>
-
-  {/* Mobile menu */}
-  <div id="mobile-menu" class="hidden md:hidden glass border-t border-outline-variant/30 px-8 py-6 flex flex-col gap-5">
-    {navLinks.map((link) => (
-      <button data-scroll-to={link.toLowerCase()}
-        class="text-[13px] font-sans font-medium tracking-label uppercase text-left text-foreground/80 hover:text-primary transition-colors">
-        {link}
-      </button>
-    ))}
-    <button data-scroll-to="inquire"
-      class="mt-2 px-6 py-3 text-[13px] font-sans font-semibold tracking-label uppercase bg-primary text-white rounded magnetic-btn w-full">
-      Inquire Now
-    </button>
-  </div>
-</nav>
+</div>
 
 <style>
   .glass {
-    background: rgba(248, 249, 250, 0.82);
+    background: rgba(248, 249, 250, 0.98);
     backdrop-filter: blur(32px);
     -webkit-backdrop-filter: blur(32px);
-    border-bottom: 1px solid rgba(195, 198, 213, 0.4);
   }
 
   .animate-nav-entrance {
@@ -87,51 +114,79 @@ const navLinks = ['Overview', 'Gallery', 'Amenities', 'Location', 'Testimonials'
     }
   }
 
-  /* Scrolled Styles */
-  nav.is-scrolled {
-    @apply glass shadow-sm;
+  .mobile-menu-side {
+    left: 0;
+    transform: translateX(-100%);
   }
 
-  nav.is-scrolled .nav-link {
+  :global([dir="rtl"]) .mobile-menu-side {
+    left: auto;
+    right: 0;
+    transform: translateX(100%);
+  }
+
+  .menu-open #mobile-menu {
+    transform: translateX(0) !important;
+  }
+
+  .menu-open #menu-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  :global(body.menu-open) {
+    overflow: hidden;
+  }
+
+  .logo-img {
+    filter: brightness(0) invert(1);
+  }
+
+  #main-nav.is-scrolled #nav-bg {
+    @apply glass shadow-sm;
+    pointer-events: auto;
+  }
+  
+  #main-nav.is-scrolled .logo-img {
+    filter: none;
+  }
+
+  #main-nav.is-scrolled .nav-link {
     color: #434653;
   }
 
-  nav.is-scrolled #cta-btn {
+  #main-nav.is-scrolled #cta-btn {
     @apply bg-primary text-white border-primary/80;
   }
 
-  nav.is-scrolled #menu-toggle {
+  #main-nav.is-scrolled #menu-toggle {
     color: #0046A7;
-  }
-
-  /* Mobile Menu Open State */
-  nav.menu-open #mobile-menu {
-    display: flex;
-  }
-
-  nav.menu-open #menu-toggle .hamburger-line:nth-child(1) {
-    transform: translateY(7px) rotate(45deg);
-  }
-  nav.menu-open #menu-toggle .hamburger-line:nth-child(2) {
-    opacity: 0;
-  }
-  nav.menu-open #menu-toggle .hamburger-line:nth-child(3) {
-    transform: translateY(-7px) rotate(-45deg);
   }
 </style>
 
 <script>
   function initNavbar() {
+    const wrapper = document.getElementById('nav-wrapper');
     const nav = document.getElementById('main-nav');
     const menuToggle = document.getElementById('menu-toggle');
-    const logoBtn = document.getElementById('logo-btn');
-    const scrollButtons = document.querySelectorAll('[data-scroll-to]');
+    const menuClose = document.getElementById('menu-close');
+    const menuOverlay = document.getElementById('menu-overlay');
+    const isHome = window.location.pathname === '/' || window.location.pathname === '/index.html';
 
-    if (!nav) return;
+    if (!wrapper || !nav) return;
 
-    // Scroll effect
+    const closeMenu = () => {
+      wrapper.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
+    };
+
+    const openMenu = () => {
+      wrapper.classList.add('menu-open');
+      document.body.classList.add('menu-open');
+    };
+
     const handleScroll = () => {
-      if (window.scrollY > 60) {
+      if (!isHome || window.scrollY > 60) {
         nav.classList.add('is-scrolled');
       } else {
         nav.classList.remove('is-scrolled');
@@ -139,36 +194,31 @@ const navLinks = ['Overview', 'Gallery', 'Amenities', 'Location', 'Testimonials'
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial check
+    handleScroll();
 
-    // Mobile menu toggle
-    menuToggle?.addEventListener('click', () => {
-      nav.classList.toggle('menu-open');
-    });
+    menuToggle?.addEventListener('click', openMenu);
+    menuClose?.addEventListener('click', closeMenu);
+    menuOverlay?.addEventListener('click', closeMenu);
 
-    // Logo click (scroll to top)
-    logoBtn?.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      nav.classList.remove('menu-open');
-    });
+    document.querySelectorAll('a[href^="/#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        const targetId = href.split('#')[1];
+        const targetElement = document.getElementById(targetId);
 
-    // Navigation links
-    scrollButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const targetId = button.getAttribute('data-scroll-to');
-        const element = document.getElementById(targetId);
-        
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-          nav.classList.remove('menu-open');
+        if (targetElement && window.location.pathname === '/') {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+          closeMenu();
         }
       });
     });
+
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+      link.addEventListener('click', closeMenu);
+    });
   }
 
-  // Run on initial load
   initNavbar();
-
-  // Run on View Transitions navigation
   document.addEventListener('astro:after-swap', initNavbar);
 </script>

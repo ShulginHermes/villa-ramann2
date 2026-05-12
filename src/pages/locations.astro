@@ -1,0 +1,14 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/villa/Navbar.astro';
+import Footer from '../components/villa/Footer';
+import LocationsPage from '../components/villa/LocationsPage';
+---
+
+<Layout>
+	<div class="min-h-screen bg-surface font-sans">
+		<Navbar />
+		<LocationsPage client:load />
+		<Footer client:visible />
+	</div>
+</Layout>
