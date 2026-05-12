@@ -70,23 +70,15 @@
 
 @layer components {
   .glass {
-    background: rgba(248, 249, 250, 0.82);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
-    border-bottom: 1px solid rgba(195, 198, 213, 0.4);
+    @apply bg-surface/80 backdrop-blur-[32px] border-b border-outline-variant/40;
   }
 
   .glass-dark {
-    background: rgba(0, 70, 167, 0.08);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
+    @apply bg-primary/10 backdrop-blur-[32px];
   }
 
   .glass-card {
-    background: rgba(255, 255, 255, 0.72);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(195, 198, 213, 0.35);
+    @apply bg-white/70 backdrop-blur-[24px] border border-outline-variant/35;
   }
 }
 

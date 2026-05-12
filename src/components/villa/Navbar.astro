@@ -98,9 +98,7 @@ const isHome = pathname === '/' || pathname === '/index.html';
 
 <style>
   .glass {
-    background: rgba(248, 249, 250, 0.98);
-    backdrop-filter: blur(32px);
-    -webkit-backdrop-filter: blur(32px);
+    @apply bg-surface/95 backdrop-blur-[32px];
   }
 
   .animate-nav-entrance {
